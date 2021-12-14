@@ -180,12 +180,14 @@ return [
      *   your application that still emit deprecations.
      */
     'Error' => [
-        'errorLevel' => E_ALL,
+        'errorLevel' => E_ALL & ~E_USER_DEPRECATED,
         'exceptionRenderer' => ExceptionRenderer::class,
         'skipLog' => [],
         'log' => true,
         'trace' => true,
-        'ignoredDeprecationPaths' => [],
+        'ignoredDeprecationPaths' => [
+            'vendor/cakephp/cakephp/src/Routing/Route/Route.php',
+        ],
     ],
 
     /*
@@ -225,7 +227,9 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => MailTransport::class,
+            // turn on for email through server
+            // 'className' => MailTransport::class,
+            'className' => 'Debug',
             /*
              * The keys host, port, timeout, username, password, client and tls
              * are used in SMTP transports
